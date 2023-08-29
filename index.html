@@ -1,26 +1,62 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Hello APAAA</title>
     <style>
-        body {
-            background-color: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+        html {
+            cursor: url('racecar.png'), auto;
+            height: 100%;
         }
-        
-        .big-orange-text {
-            font-size: 36px;
-            color: orange;
+        body {
+            margin: 0;
+            overflow: hidden;
+            cursor: none;
+            /* Hide the default cursor */
+        }
+
+        .trail {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            border-radius: 50%;
+            opacity: 0.5;
+            pointer-events: none;
+            transition: transform 0.2s, opacity 0.5s;
         }
     </style>
 </head>
+
 <body>
-    <div class="big-orange-text">RAJIV WAS HERE</div>
+
+    <script>
+        var trails = [];
+        var numTrails = 20;
+
+        for (var i = 0; i < numTrails; i++) {
+            var trail = document.createElement('div');
+            trail.className = 'trail';
+            document.body.appendChild(trail);
+            trails.push(trail);
+        }
+
+        function updateTrailPositions(x, y) {
+            for (var i = 0; i < trails.length; i++) {
+                var trail = trails[i];
+                var scale = (i + 1) / numTrails; // Vary opacity and size for the fading effect
+                trail.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+            }
+        }
+
+        document.addEventListener('mousemove', function (e) {
+            updateTrailPositions(e.pageX, e.pageY);
+        });
+
+        document.addEventListener('mouseout', function () {
+            updateTrailPositions(-10, -10); // Move trails out of view
+        });
+    </script>
+
 </body>
+
 </html>
-
-
